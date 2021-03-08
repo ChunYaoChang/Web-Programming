@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com"> 
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <!-- up-next container -->
+
+    <div class="fade-in">
+        <div class="player">
+            <div class="details">
+                <div class="now-playing"> now playing </div> 
+                <div class="track-art"></div>
+                <div class="track-name">Losing Me</div>
+                <div class="track-artist">Gabrielle Aplin</div>
+            </div>
+            <div class="buttonslider-container">
+                <div class="buttons">
+                    <div class="prev-track"><i class="fa fa-step-backward fa-2x"></i></div>
+                    <div class="playpause-track"><i class="fa fa-play fa-3x" href=""></i></div>
+                    <div class="next-track"><i class="fa fa-step-forward fa-2x"></i></div>
+                </div>
+                <div class="slider-container">
+                    <div class="current-time">02:05</div>
+                    <input type="range" min="1" max="100" value="45" >
+                    <div class="total-duration">03:29</div>
+                </div>
+                <div class="slider_container">
+                    <i class="fa fa-volume-down"></i>
+                    <input type="range" min="1" max="100" value="80">
+                    <i class="fa fa-volume-up"></i>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="fade-in">
+        <div class="next-page">
+            <div class="up-next">Up Next</div>
+            <div class="up-next-container">
+                <div class="playlist">
+                    <ul class="ul_playlist">
+                        <li class="li_playlist">
+                            <div class="track-details-title">Holy Feeling</div>
+                            <div class="track-details-artist">Greyson Chance</div>
+                        </li>
+                        <li class="li_playlist">
+                            <div class="track-details-title">Queen Bee</div>
+                            <div class="track-details-artist">Johnny Flynn</div>
+                        </li>
+                        <li class="li_playlist">
+                            <div class="track-details-title">Lonliness</div>
+                            <div class="track-details-artist">Birdy</div>
+                        </li>
+                        <li class="li_playlist">
+                            <div class="track-details-title">Sword from the Stone</div>
+                            <div class="track-details-artist">Passenger</div>
+                        </li>
+                        <li class="li_playlist">
+                            <div class="track-details-title">Don't You Worry</div>
+                            <div class="track-details-artist">Oh Wonder</div>
+                        </li>
+                        <li class="li_playlist">
+                            <div class="track-details-title">Afterglow</div>
+                            <div class="track-details-artist">Ed Sheeran</div>
+                        </li>
+                        <li class="li_playlist">
+                            <div class="track-details-title">The Only Thing</div>
+                            <div class="track-details-artist">Sufjan Stevens</div>
+                        </li>
+                        <li class="li_playlist">
+                            <div class="track-details-title">champagne problems</div>
+                            <div class="track-details-artist">Taylow Swift</div>
+                        </li>
+                        <li class="li_playlist">
+                            <div class="track-details-title">Into the Unknown</div>
+                            <div class="track-details-artist">Postcard from Mars</div>
+                        </li>
+                        <li class="li_playlist">
+                            <div class="track-details-title">Wild Roses</div>
+                            <div class="track-details-artist">Of Monsters and Men</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="album-slider-container">
+                    <input id="sliderSwitch" class="slider__switch" type="checkbox" name="sliderSwitch" hidden />
+                    <div class="slider">
+                        <ul class="slider__list">
+                            <li class="slider__slide"><img src="ref1.png" height="400rem" weight="400rem" alt="Holy Feeling" /></li>
+                            <li class="slider__slide"><img src="ref2.jpg" height="400rem" weight="400rem" alt="Queen Bee" /></li>
+                            <li class="slider__slide"><img src="ref3.png" height="400rem" weight="400rem" alt="Lonliness" /></li>
+                            <li class="slider__slide"><img src="ref4.jpg" height="400rem" weight="400rem" alt="Sword from the Stone" /></li>
+                            <li class="slider__slide"><img src="ref5.jpg" height="400rem" weight="400rem" alt="Don't You Worry" /></li>
+                            <li class="slider__slide"><img src="ref6.jpg" height="400rem" weight="400rem" alt="Afterglow" /></li>
+                            <li class="slider__slide"><img src="ref7.jpg" height="400rem" weight="400rem" alt="The Only Thing" /></li>
+                            <li class="slider__slide"><img src="ref8.jpg" height="400rem" weight="400rem" alt="champagne problems" /></li>
+                            <li class="slider__slide"><img src="ref9.jpg" height="400rem" weight="400rem" alt="Into the Unknown" /></li>
+                            <li class="slider__slide"><img src="ref10.jpg" height="400rem" weight="400rem" alt="Wild Roses" /></li>
+                        </ul>
+                    </div>
+                    <div class="slider__control">
+                        <label for="sliderSwitch"></label>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>

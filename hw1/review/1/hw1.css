@@ -1,0 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Gayathri&display=swap");
+@import url("https://use.fontawesome.com/releases/v5.8.1/css/all.css");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Gayathri", sans-serif;
+}
+
+
+body {
+    width: 100%;
+    height:100%;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font: 16px ;
+}
+.player{
+    width: 375px;
+    height: 550px;
+    background-color: gray;
+    border-radius: 10px;
+    position: relative;
+}
+   
+.header{
+      padding: 15px 0;
+      text-align: center;
+    }
+
+img{
+  display: block;
+  width: 95%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
+.albumPic{
+    width: 375* 0.72;
+    height: 550 * 0.72;
+    border-radius: 10px;
+}
+.trackInfo{
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+.name{
+    font-size: 24px;
+    margin-bottom: 10px;
+    
+}
+.audioControl{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+audio:hover, audio:focus, audio:active{
+-webkit-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+-moz-box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
+-webkit-transform: scale(1.05);
+-moz-transform: scale(1.05);
+transform: scale(1.05);
+}
+
+audio
+{
+-webkit-transition:all 0.5s linear;
+-moz-transition:all 0.5s linear;
+-o-transition:all 0.5s linear;
+transition:all 0.5s linear;
+-moz-box-shadow: 2px 2px 2px 2px #636464;
+-webkit-box-shadow:  2px 2px 2px 2px #636464;
+box-shadow: 2px 2px 4px 0px #636464;
+-moz-border-radius:auto ;
+-webkit-border-radius:auto;
+border-radius:23px;
+}
+.controls{
+  display: flex;
+  align-items: center;
+  flex-direction: row; 
+
+}
+.like{
+    cursor: pointer;
+    width: 75px;
+    height: 75px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    color: #fff;
+    font-size: 35px;
+}
+.like:hover{
+    font-size: 40px; 
+}
+        
+.previous{  
+    cursor: pointer;
+    width: 75px;
+    height: 75px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    color: #fff;
+    font-size: 35px;
+}
+.previous:hover{
+  font-size: 40px; 
+}
+
+.next{  
+    cursor: pointer;
+    width: 75px;
+    height: 75px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    color: #fff;
+    font-size: 35px;
+}
+.next:hover{
+  font-size: 40px; 
+}
