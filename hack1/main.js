@@ -45,6 +45,8 @@ comm_but.addEventListener('click', function () {
 });
 
 cancel_but.addEventListener('click', function () {
+    comm_but.disabled = true;
+    comm_but.style["background-color"] = "#cccccc";
     input.value = "";
     comm_but.style["display"] = "none";
     cancel_but.style["display"] = "none";
