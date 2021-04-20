@@ -13,7 +13,7 @@ export default function Board2048 (props) {
             <>
             <table className={overBoardClassName} id="board-full">
                 <tbody>
-                    {props.board.map((row_vector, row_idx) => (<Row key={row_idx} row_vector={row_vector} row_idx={row_idx}/>))}
+                    {props.board.map((row_vector, row_idx) => (<Row key={row_idx} row_vector={row_vector} row_idx={row_idx} newGridBoard={props.newGridBoard}/>))}
                 </tbody>
             </table>
             <div className={overInfoClassName} id="game-over-info">
@@ -27,7 +27,7 @@ export default function Board2048 (props) {
             <>
             <table className={overBoardClassName} id="board-full">
                 <tbody>
-                    {props.board.map((row_vector, row_idx) => (<Row key={row_idx} row_vector={row_vector} row_idx={row_idx}/>))}
+                    {props.board.map((row_vector, row_idx) => (<Row key={row_idx} row_vector={row_vector} row_idx={row_idx} newGridBoard={props.newGridBoard}/>))}
                 </tbody>
             </table>
             <div className={overInfoClassName} id="game-over-info">
@@ -41,7 +41,7 @@ export default function Board2048 (props) {
             <>
             <table className={boardClassName} id="board-full">
                 <tbody>
-                    {props.board.map((row_vector, row_idx) => (<Row key={row_idx} row_vector={row_vector} row_idx={row_idx}/>))}
+                    {props.board.map((row_vector, row_idx) => (<Row key={row_idx} row_vector={row_vector} row_idx={row_idx} newGridBoard={props.newGridBoard}/>))}
                 </tbody>
             </table>
             <div className={infoClassName} id="game-over-info">

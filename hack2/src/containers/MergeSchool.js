@@ -13,6 +13,14 @@ for(let i = 0; i < tokenString.length; i++){
 
 function MergeSchool() {
     var body = document.querySelector('body')
+    const blankBoard = [[0,0,0,0],
+    [0,0,0,0],
+    [0,0,0,0],
+    [1,1,0,0]];
+    const [newGridBoard, setNewGridBoard] = useState([[0,0,0,0],
+        [0,0,0,0],
+        [0,0,0,0],
+        [1,1,0,0]]);
     const [board, setBoard] = useState([[0,0,0,0],
         [0,0,0,0],
         [0,0,0,0],
@@ -106,6 +114,9 @@ function MergeSchool() {
         } 
         let random_empty_grid = empty_grid[random_num];
         board[random_empty_grid[0]][random_empty_grid[1]] = 2;
+        let newGBroad = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+        newGBroad[random_empty_grid[0]][random_empty_grid[1]] = 1;
+        setNewGridBoard(newGBroad);
         return {board};
     }
     
@@ -365,7 +376,7 @@ function MergeSchool() {
     return (
         <>      
             <Header qs_ranking={qs_ranking} step={step} best_qs_ranking={best_qs_ranking} initializeBoard={initializeBoard}/>
-            <Board2048 className="wrapper" board={board} win={win} gameover={gameover} initializeBoard={initializeBoard}/>
+            <Board2048 className="wrapper" board={board} win={win} gameover={gameover} initializeBoard={initializeBoard} newGridBoard={newGridBoard}/>
             <div className="btn-groups">
                 <div className="btn-useful" id="badend-btn" onClick={setBadEnd}>BadEnd</div>
                 <div className="btn-useful" id="goodend-btn" onClick={setGoodEnd}>GoodEnd</div>

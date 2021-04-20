@@ -15,11 +15,22 @@ export default function Grid (props) {
         temp_class_name = temp_class_name + ` level-${value}`;
     }
     value = mapping[value]
-    return (
-        <td>
-            <div className={temp_class_name} id={grid_id}>
-                <div className="school-name" id={value_id}>{value}</div>
-            </div>
-        </td>
-    );
+    if (props.newGridBoard[props.row_idx][props.column_idx]) {
+        temp_class_name = temp_class_name + ` school-fade-in`
+        return (
+            <td>
+                <div className={temp_class_name} id={grid_id}>
+                    <div className="school-name" id={value_id}>{value}</div>
+                </div>
+            </td>
+        );
+    } else {
+        return (
+            <td>
+                <div className={temp_class_name} id={grid_id}>
+                    <div className="school-name" id={value_id}>{value}</div>
+                </div>
+            </td>
+        );
+    }
 }

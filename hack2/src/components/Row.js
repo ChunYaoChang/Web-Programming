@@ -4,7 +4,7 @@ export default function Row (props) {
     // console.log(row_idx)
     return (
         <tr>
-          {props.row_vector.map((value, column_idx) => (<Grid key={column_idx} row_idx={row_idx} column_idx={column_idx} value={value}/>))}
+          {props.row_vector.map((value, column_idx) => (<Grid key={column_idx} row_idx={row_idx} column_idx={column_idx} value={value} newGridBoard={props.newGridBoard}/>))}
         </tr>
     );
 };
