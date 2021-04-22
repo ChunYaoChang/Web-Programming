@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
 
-const RowButton = (className) => {
+const RowButton = (props) => {
     return (
-        <div className={className}>
-            <button style={{marginTop: '60px'}}>+</button>
+        <div className={props.className}>
+            <button style={{marginTop: '60px'}} onMouseDown={props.handleRowAdd}>+</button>
             <br></br>
-            <button>-</button>
+            <button onMouseDown={props.handleRowDelete}>-</button>
         </div>
     )
 }

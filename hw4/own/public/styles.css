@@ -4,10 +4,10 @@
 
 body {
     display: flex;
-    font-family: -apple-system;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
 }
-
+  
 .table-wrapper {
     overflow: scroll;
 }
@@ -15,22 +15,71 @@ body {
 table {
     border: 1px solid #ccc;
     border-collapse: collapse;
+    width: 100px;
+    table-layout: fixed;
 }
-
+  
 td, th {
+    box-sizing: border-box;
+    font-size: 16px;
     border: 1px solid #ccc;
     height: 30px;
     width: 100px;
-    padding: 0px;
+    min-width: 100px;
+    padding: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 3;
 }
 
-tbody tr td:first-of-type {
+.first-col {
+    width: 70px;
+    min-width: 70px;
+}
+
+.td_is-selected {
+    box-sizing: border-box;
+    padding: 0px;
+    padding-left: 3px;
+    border: 2px solid rgba(77, 163, 233, 0.76);
+    z-index: 5;
+}
+
+input[type="text"] {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    height: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+}
+
+*[tabindex]:focus {
+    outline: 0px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.first-cell {
+    background-color: #eee;
+    box-sizing: border-box;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-right-color: rgb(165, 160, 160);
+    border-bottom-color: rgb(165, 160, 160);
+}
+
+.th_not-selected {
     background-color: #eee;
     text-align: center;
+    font-weight: 400;
 }
 
-th {
-    background-color: #eee;
+.th_is-selected {
+    background-color: rgb(138, 138, 138);
     text-align: center;
     font-weight: 400;
 }

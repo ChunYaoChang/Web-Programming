@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 
-const ColumnButton = (className) => {
+const ColumnButton = (props) => {
     return (
-        <div className={className}>
-            <button style={{marginLeft: '100px'}}>+</button>
-            <button>-</button>
+        <div className={props.className}>
+            <button style={{marginLeft: '100px'}} onMouseDown={props.handleColAdd}>+</button>
+            <button onMouseDown={props.handleColDelete}>-</button>
         </div>
     )
 }
