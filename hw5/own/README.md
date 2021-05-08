@@ -1,4 +1,11 @@
+# Execution Step
 >finish basic part and advanced part
+```bash
+# terminal 1
+yarn server
+# terminal 2
+yarn start
+```
 
 # Getting Started with Create React App
 

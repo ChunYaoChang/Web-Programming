@@ -32,13 +32,14 @@ router.get('/guess', (req, res) => {
   else {
     // TODO: check if number and guessed are the same,
     // and response with some hint "Equal", "Bigger", "Smaller"
-    saveLog('guess ' + guessed)
     if (number === guessed) {
-      saveLog('end-game')
+      saveLog('guess ' + guessed + 'end-game')
       res.status(200).send({ msg: 'Equal' })
     } else if (number < guessed) {
+      saveLog('guess ' + guessed)
       res.status(200).send({ msg: 'Smaller' })
     } else {
+      saveLog('guess ' + guessed)
       res.status(200).send({ msg: 'Bigger' })
     }
   }

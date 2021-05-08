@@ -24,8 +24,9 @@ const saveLog = (msg) => {
                 + currentdate.getHours() + "-"  
                 + currentdate.getMinutes() + "-"
                 + currentdate.getSeconds();
-    if (msg == 'end-game') {
-        fs.appendFile(filename, msg + '\n', function (err) {
+    if (msg.includes('end-game')) {
+        var msg1 = msg.replace('end-game', '')
+        fs.appendFile(filename, msg1 + ' ' + datetime + '\n' + 'end-game\n', function (err) {
             if (err)
                 console.log(err);
         });
