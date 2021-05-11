@@ -1,0 +1,3 @@
+本次作業除了實作基礎的部分，我亦有實作進階的寫log檔功能
+為了能夠寫log檔，必須要使用"winston"套件，所以在npm install時，應會將winston套件載入
+當開始玩遊戲時，應可以在server底下的log目錄下看到log檔
