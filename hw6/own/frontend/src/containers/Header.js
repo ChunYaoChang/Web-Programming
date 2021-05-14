@@ -21,7 +21,7 @@ const Header = () => {
   const handleClear = async () => {
     const {
       data: { message },
-    } = await {} // TODO: axios.xxx call the right api
+    } = await axios.delete('/api/delete-card', {}) // TODO: axios.xxx call the right api
     addRegularMessage(message);
   };
 

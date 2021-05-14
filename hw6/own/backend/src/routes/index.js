@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import apiRouter from './api';
+import scoreCardRouter from './api/scoreCard';
 
 const router = Router();
 
-router.use('/api', apiRouter);
+router.use('/api', scoreCardRouter);
 
 export default router;
