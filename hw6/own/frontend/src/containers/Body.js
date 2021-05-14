@@ -75,8 +75,7 @@ const Body = () => {
     console.log(messages)
     console.log(message)
     if (!messages) {
-      addErrorMessage(message);
-      
+      addErrorMessage(message);      
     }
     else addRegularMessage(...messages);
   };

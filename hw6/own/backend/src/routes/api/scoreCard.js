@@ -84,12 +84,17 @@ router.get('/query-card', async (req, res) => {
       query = {subject: req.query.queryString}
     }
     const existing = await ScoreCard.find(query)
-    console.log(existing)
-    if (!existing) {
+    // console.log(existing.length)
+    if (!existing.length) {
+      // console.log('fuck')
       res.send({messages: '', message: `${req.query.queryType}(${req.query.queryString}) not found!`})
     }
     else {
-      res.send({messages: existing, message: ''})
+      var result = []
+      for (let i = 0; i < existing.length; i++) {
+        result.push(`name: ${existing[i].name}, subject: ${existing[i].subject}, score: ${existing[i].score}`)
+      }
+      res.send({messages: result, message: ''})
     }
   } catch (e) {
     res.send({ messages: '', message: '/query-card went wrong... ' + e })
