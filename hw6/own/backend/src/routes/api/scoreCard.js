@@ -27,7 +27,7 @@ const saveUser = async (name, subject, score) => {
 
 const deleteUser = async () => {
   try {
-    ScoreCard.deleteMany()
+    await ScoreCard.deleteMany({})
     return 'Database cleared'
   } catch (e) {
     throw new Error('Delete DB failed: ' + e)
@@ -49,9 +49,9 @@ router.post('/create-card', async function (req, res) {
     //     create a new card, save it to DB
     //     res.send({card, message}), where message is the text to print
 
-    console.log(req.body.name)
-    console.log(req.body.subject)
-    console.log(req.body.score)
+    // console.log(req.body.name)
+    // console.log(req.body.subject)
+    // console.log(req.body.score)
 
     const msg = await saveUser(req.body.name, req.body.subject, req.body.score)
     res.json({message: msg, card: req.body})
