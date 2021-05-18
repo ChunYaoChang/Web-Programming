@@ -13,18 +13,21 @@ const instance = axios.create({
 function App() {
   // sample structure of data
   // data: {
-  //   R: [],
-  //   G: []
-  // }
-  const [data, setData] = useState({}) // all MRT station data
-  const [current_station_id, setCurrentStationId] = useState('None') // station clicked by cursor
-  const [start_station, setStartStation] = useState('') // station selected as the starting one
-  const [end_station, setEndStation] = useState('') // station selected as the ending one
-  const [distance, setDistance] = useState(-2) // distance shown on the screen
+    //   R: [],
+    //   G: []
+    // }
+    const [data, setData] = useState({}) // all MRT station data
+    const [current_station_id, setCurrentStationId] = useState('None') // station clicked by cursor
+    const [start_station, setStartStation] = useState('') // station selected as the starting one
+    const [end_station, setEndStation] = useState('') // station selected as the ending one
+    const [distance, setDistance] = useState(-2) // distance shown on the screen
+    
+    const station_type = current_station_id[0] // R10, station_type = R
+    const station_order = current_station_id.slice(1, current_station_id.length) // R10, station_order = 10
+    const station_info = current_station_id[0] !== 'N' ? data[station_type][parseInt(station_order) - 1] : null // get certain station information
+    
+    const [answerClassName, setAnswerClassName] = useState('')
 
-  const station_type = current_station_id[0] // R10, station_type = R
-  const station_order = current_station_id.slice(1, current_station_id.length) // R10, station_order = 10
-  const station_info = current_station_id[0] !== 'N' ? data[station_type][parseInt(station_order) - 1] : null // get certain station information
 
   const showStationInfo = (e) => {
     setCurrentStationId(e)
@@ -34,7 +37,6 @@ function App() {
     // fetch data from database via backend
     // coding here ...
     const {data} = await instance.get('/getStations')
-    console.log(data)
     setData(data.data);
   }
 
@@ -45,6 +47,19 @@ function App() {
   const calculateDistance = async () => {
     // send start and end stations to backend and get distance
     // coding here ...
+    // console.log(`/calculateDistance?start=${start_station}&end=${end_station}`)
+    const {data} = await instance.get(`/calculateDistance?start=${start_station}&end=${end_station}`)
+    const dist = data.distance
+    if (dist == -2){
+      setDistance('')
+      setAnswerClassName('')
+    } else if (dist == -1) {
+      setDistance('INVALID')
+      setAnswerClassName('invalid')
+    } else {
+      setDistance(dist)
+      setAnswerClassName('')
+    }
   }
 
   // fetch data here after 1st render
@@ -65,26 +80,46 @@ function App() {
         <div className="mode-selector">
           
           <span id="start-station-span">起始站</span>
-          <select id="start-select" className="start-station"> {/* you should add both onChange and value to attributes */}
+          <select id="start-select" className="start-station" onChange={(e) => setStartStation(e.target.value)}> {/* you should add both onChange and value to attributes */}
             <option></option>
-            {
-              // generate options of all stations within option group
-              // coding here ...
-            }
+            <optgroup label={Object.keys(data)[0]}>
+              {data[Object.keys(data)[0]].map(station => {
+                return (
+                  <option id={`start-group-${station.station_id}`} value={station.station_id}>{station.station_name}</option>
+                )
+              })}
+            </optgroup>
+            <optgroup label={Object.keys(data)[1]}>
+              {data[Object.keys(data)[1]].map(station => {
+                return (
+                  <option id={`start-group-${station.station_id}`} value={station.station_id}>{station.station_name}</option>
+                )
+              })}
+            </optgroup>
           </select>
 
           <span id="end-station-span">終點站</span>
-          <select id="end-select" className="end-station"> {/* you should add both onChange and value to attributes */}
+          <select id="end-select" className="end-station" onChange={(e) => setEndStation(e.target.value)}> {/* you should add both onChange and value to attributes */}
             <option></option>
-            {
-              // generate options of all stations within option group
-              // coding here ...
-            }
+            <optgroup label={Object.keys(data)[0]}>
+              {data[Object.keys(data)[0]].map(station => {
+                return (
+                  <option id={`end-group-${station.station_id}`} value={station.station_id}>{station.station_name}</option>
+                )
+              })}
+            </optgroup>
+            <optgroup label={Object.keys(data)[1]}>
+              {data[Object.keys(data)[1]].map(station => {
+                return (
+                  <option id={`end-group-${station.station_id}`} value={station.station_id}>{station.station_name}</option>
+                )
+              })}
+            </optgroup>
           </select>
 
           <button onClick={calculateDistance} id="search-btn">查詢距離</button>
-          <span id="answer"> {/* you should add className to attributes */}
-            {distance}
+          <span id="answer" className={answerClassName}> {/* you should add className to attributes */}
+            {distance != -2 && distance}
           </span>
           <span id="answer-postfix">KM</span>
         </div>

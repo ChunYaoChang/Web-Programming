@@ -2,7 +2,7 @@ import React from 'react'
 
 function StationInfo(props) {
   const station_info = props.station_info
-  console.log(station_info)
+  // console.log(station_info)
   var labels = []
   if (!station_info) {
     labels = [
