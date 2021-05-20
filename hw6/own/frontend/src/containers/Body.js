@@ -67,13 +67,13 @@ const Body = () => {
   };
 
   const handleQuery = async () => {
-    console.log(queryType)
-    console.log(queryString)
+    // console.log(queryType)
+    // console.log(queryString)
     const {
       data: { messages, message },
     } = await axios.get('/api/query-card', { params: { queryType, queryString} }); // TODO: axios.xxx call the right api
-    console.log(messages)
-    console.log(message)
+    // console.log(messages)
+    // console.log(message)
     if (!messages) {
       addErrorMessage(message);      
     }
