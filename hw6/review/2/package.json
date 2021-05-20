@@ -1,0 +1,14 @@
+{
+  "name": "chat-tmp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "cd frontend && yarn start",
+    "server": "cd backend && yarn server"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
