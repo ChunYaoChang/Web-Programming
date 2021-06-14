@@ -1,39 +1,61 @@
 import "../App.css";
-import { Component, useState } from "react";
+import { Component, useState, useEffect } from "react";
+import { useQuery, useMutation, useSubscription } from "@apollo/client";
 import { Tabs, Input } from "antd";
 import ChatModal from "../components/ChatModal";
 import useChat from "../hooks/useChat"
+import {
+  CHATBOX_QUERY,
+  CREATE_CHATBOX_MUTATION,
+  CREATE_MESSAGE_MUTATION,
+  CHATBOX_SUBSCRIPTION
+} from '../graphql';
 
 const { TabPane } = Tabs;
 const ChatRoom = ({ me }) => {
-  const [chatBoxes, setChatBoxes] = useState([
-    { friend: "Mary", key: me <= "Mary" ? `${me}_Mary` : `Mary_${me}`, 
-      chatLog: [] },
-    { friend: "Peter", key: me <= "Peter" ? `${me}_Peter` : `Peter_${me}`, 
-      chatLog: [] }
-  ]);
+  const [chatBoxes, setChatBoxes] = useState([])
   // const [chatBoxes, setChatBoxes] = useState([])
   const [messageInput, setMessageInput] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const addChatBox = () => { setModalVisible(true); };
   const [activeKey, setActiveKey] = useState("")
-  const {sendMessage} = useChat()
+  const [nowFriend, setNowFriend] = useState("")
+  // const {sendMessage} = useChat()
+  const [startChat] = useMutation(CREATE_CHATBOX_MUTATION);
+  const [sendMessage] = useMutation(CREATE_MESSAGE_MUTATION);
+  // const {loading, error, data, subscribeToMore} = useQuery(CHATBOX_QUERY)
+  // useEffect(() => {
+  //   try {
+  //     subscribeToMore({
+  //       document: CHATBOX_SUBSCRIPTION,
+  //       updateQuery: (prev, { subscriptionData }) => {
+  //         if (!subscriptionData.data) return prev;
+  //         const newMessage = subscriptionData.data.chatBox.data;
+
+  //         return {
+  //           ...prev,
+  //           posts: [...prev.posts, newMessage],
+  //         };
+  //       },
+  //     });
+  //   } catch (e) {}
+  // }, [subscribeToMore]);
   
 
-  const createChatBox = (friend) => {
-    const newKey = me <= friend ?
-          `${me}_${friend}` : `${friend}_${me}`;
-    sendMessage({type: "CHAT", activeKey: newKey})
-    // if (chatBoxes.some(({ key }) => key === newKey)) {
-    //   throw new Error(friend + "'s chat box has already opened.");
-    // }
-    // const newChatBoxes = [...chatBoxes];
-    // const chatLog = [];
-    // newChatBoxes.push({ friend, key: newKey, chatLog });
-    // setChatBoxes(newChatBoxes);
-    // setActiveKey(newKey);
+  // const createChatBox = (friend) => {
+  //   const newKey = me <= friend ?
+  //         `${me}_${friend}` : `${friend}_${me}`;
+  //   sendMessage({type: "CHAT", activeKey: newKey})
+  //   // if (chatBoxes.some(({ key }) => key === newKey)) {
+  //   //   throw new Error(friend + "'s chat box has already opened.");
+  //   // }
+  //   // const newChatBoxes = [...chatBoxes];
+  //   // const chatLog = [];
+  //   // newChatBoxes.push({ friend, key: newKey, chatLog });
+  //   // setChatBoxes(newChatBoxes);
+  //   // setActiveKey(newKey);
 
-  };
+  // };
 
   const removeChatBox = (targetKey) => {
     let newActiveKey = activeKey;
@@ -78,9 +100,11 @@ const ChatRoom = ({ me }) => {
         </Tabs>
         <ChatModal
           visible={modalVisible}
-          onCreate={({ name }) => {
-            createChatBox(name);
-            setModalVisible(false);
+          onCreate={async ({ name }) => {
+            console.log(name, me)
+            await startChat({
+              variables: {name1: name, name2: me},
+            });
           }}
           onCancel={() => {
             setModalVisible(false);
@@ -95,7 +119,8 @@ const ChatRoom = ({ me }) => {
           placeholder=
             "Enter message here..."
           onSearch={(msg) => 
-            { sendMessage({type: "MESSAGE", activeKey, msg}) }}
+            { sendMessage({ variables: { me, me, msg } });
+          }}
         ></Input.Search> 
     </>);
   };

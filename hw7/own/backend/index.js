@@ -16,18 +16,15 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
   name: { type: String, required: true },
-  chatBoxes: [{ type: mongoose.Types.ObjectId, ref: 'ChatBox' }],
 });
 
 const messageSchema = new Schema({
-  chatBox: { type: mongoose.Types.ObjectId, ref: 'ChatBox' },
   sender: { type: mongoose.Types.ObjectId, ref: 'User' },
   body: { type: String, required: true },
 });
 
 const chatBoxSchema = new Schema({
   name: { type: String, required: true },
-  users: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
   messages: [{ type: mongoose.Types.ObjectId, ref: 'Message' }],
 });
 
@@ -100,7 +97,7 @@ wss.on('connection', function connection(client) {
         const {
           data: { name, to },
         } = message;
-
+        console.log(name, to)
         const chatBoxName = makeName(name, to);
 
         const sender = await validateUser(name);
@@ -116,7 +113,7 @@ wss.on('connection', function connection(client) {
         client.box = chatBoxName;
         if (!chatBoxes[chatBoxName]) chatBoxes[chatBoxName] = new Set(); // make new record for chatbox
         chatBoxes[chatBoxName].add(client); // add this open connection into chat box
-
+        console.log('0.545434')
         client.sendEvent({
           type: 'CHAT',
           data: {
@@ -126,6 +123,7 @@ wss.on('connection', function connection(client) {
             })),
           },
         });
+        
 
         break;
       }
@@ -134,7 +132,7 @@ wss.on('connection', function connection(client) {
         const {
           data: { name, to, body },
         } = message;
-
+        console.log(name, to, body)
         const chatBoxName = makeName(name, to);
 
         const sender = await validateUser(name);
