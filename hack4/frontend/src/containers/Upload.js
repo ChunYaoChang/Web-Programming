@@ -2,7 +2,7 @@ import Uploader from '../components/Uploader';
 import { useQuery, useMutation, useSubscription } from "@apollo/client";
 
 import "./Upload.css";
-import {UPLOAD_MUTATION} from '../graphql';
+import {UPLOAD_MUTATION} from '../graphql/mutation';
 
 export default function Upload() {
 

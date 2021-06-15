@@ -1,7 +1,7 @@
 import constants from '../constants';  
 import { useQuery, useMutation, useSubscription } from "@apollo/client";
 // Look at this file and see how the watchList is strucutred
-import { STATSCOUNT_QUERY } from '../graphql';
+import { STATSCOUNT_QUERY } from '../graphql/query';
 
 export default function WatchList() {
 
@@ -10,7 +10,7 @@ export default function WatchList() {
     // save the result in a counts variable
     console.log(STATSCOUNT_QUERY)
     const {loading, error, previousData, data, subscribeToMore} = useQuery(STATSCOUNT_QUERY, {
-        varaibles: {severity: 1, locationKeywords: constants.watchList},
+        variables: {severity: 1, locationKeywords: constants.watchList},
     })
     console.log(data)
     const counts = data;

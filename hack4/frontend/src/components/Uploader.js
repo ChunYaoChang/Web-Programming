@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import papaparse from 'papaparse';
-import { useQuery, useMutation, useSubscription } from "@apollo/client";
-import {UPLOAD_MUTATION} from '../graphql';
 
 import "./Uploader.css"
 
