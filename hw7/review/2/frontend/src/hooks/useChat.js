@@ -1,16 +1,17 @@
-import { useState } from "react";
-
 const useChat = () => {
-  const [status] = useState({}); // { type, msg }
-  const sendMessage = (server, payload) => {
-    const { me, key, body } = payload;
-    const key_split = key.split("_");
-    const friend = me === key_split[0] ? key_split[1] : key_split[0];
-    server.sendEvent({
-      type: "MESSAGE",
-      data: { to: friend, name: me, body: body },
-    });
-  }; // { key, msg }
-  return { status, sendMessage };
+    const client = new WebSocket("ws://localhost:8080");
+
+    const sendMessage = async (payload) => {
+        const { me: me, key: activeKey, body: msg } = payload;
+        const friend = activeKey.replace("_", "").replace(me, "");
+        console.log({ type: "MESSAGE", data: { name: me, to: friend, body: msg } });
+        await client.send(JSON.stringify({ type: "MESSAGE", data: { name: me, to: friend, body: msg } }));
+    };
+
+    const createChat = async (to, name) => {
+        await client.send(JSON.stringify({ type: "CHAT", data: { to: to, name: name } }));
+    };
+
+    return { client, createChat, sendMessage };
 };
 export default useChat;

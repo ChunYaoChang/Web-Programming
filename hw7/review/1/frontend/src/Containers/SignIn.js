@@ -2,7 +2,7 @@ import "../App.css";
 import { Input } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
-const SignIn = ({ me, setMe, setSignedIn, displayStatus }) => (
+const SignIn = ({ me, setMe, setSignedIn, displayStatus}) => (
   <>
     <div className="App-title"><h1>My Chat Room</h1></div>
     <Input.Search

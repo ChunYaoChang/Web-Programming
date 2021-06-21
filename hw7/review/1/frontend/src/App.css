@@ -27,5 +27,14 @@
   border-radius: 10px;
   margin: 20px;
   padding: 20px;
+}
+.App-message-self {
+  text-align: right;
+}
+.ant-tabs-content{
+  /* this is where you would scroll only the content */
+  width: 100%;
+  height: 240px;
+  background: #eeeeee52;
   overflow: auto;
 }
