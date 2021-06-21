@@ -3,56 +3,44 @@ import { Component, useState } from "react";
 import { Tabs, Input } from "antd";
 import ChatModal from "../components/ChatModal";
 import useChat from "../hooks/useChat"
+import useChatBox from "../hooks/useChatBox";
+import MessageLayout from "../components/MessageLayout";
+
+const server = new WebSocket('ws://localhost:4000')
+server.open = () => {
+  console.log('server connected on port 4000!')
+}
+server.sendEvent = (e) => {
+  server.send(JSON.stringify(e))
+}
 
 const { TabPane } = Tabs;
-const ChatRoom = ({ me }) => {
-  const [chatBoxes, setChatBoxes] = useState([
-    { friend: "Mary", key: me <= "Mary" ? `${me}_Mary` : `Mary_${me}`, 
-      chatLog: [] },
-    { friend: "Peter", key: me <= "Peter" ? `${me}_Peter` : `Peter_${me}`, 
-      chatLog: [] }
-  ]);
+const ChatRoom = ({ me, displayStatus }) => {
   // const [chatBoxes, setChatBoxes] = useState([])
   const [messageInput, setMessageInput] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const addChatBox = () => { setModalVisible(true); };
   const [activeKey, setActiveKey] = useState("")
+  const { chatBoxes, createChatBox, removeChatBox, onEvent } = useChatBox()
   const {sendMessage} = useChat()
   
+  server.onmessage = (e) => {
+    onEvent(JSON.parse(e.data), me, activeKey)
+  }
 
-  const createChatBox = (friend) => {
-    const newKey = me <= friend ?
-          `${me}_${friend}` : `${friend}_${me}`;
-    sendMessage({type: "CHAT", activeKey: newKey})
-    // if (chatBoxes.some(({ key }) => key === newKey)) {
-    //   throw new Error(friend + "'s chat box has already opened.");
-    // }
-    // const newChatBoxes = [...chatBoxes];
-    // const chatLog = [];
-    // newChatBoxes.push({ friend, key: newKey, chatLog });
-    // setChatBoxes(newChatBoxes);
-    // setActiveKey(newKey);
-
-  };
-
-  const removeChatBox = (targetKey) => {
-    let newActiveKey = activeKey;
-    let lastIndex;
-    chatBoxes.forEach(({ key }, i) => {
-      if (key === targetKey) { lastIndex = i - 1; }});
-    const newChatBoxes = chatBoxes.filter(
-      (chatBox) => chatBox.key !== targetKey);
-    if (newChatBoxes.length) {
-      if (newActiveKey === targetKey) {
-        if (lastIndex >= 0) {
-          newActiveKey = newChatBoxes[lastIndex].key;
-        } else { newActiveKey = newChatBoxes[0].key; }
-      }
-    } else newActiveKey = ""; // No chatBox left
-    setChatBoxes(newChatBoxes);
-    setActiveKey(newActiveKey);
-  };
-
+  const renderChatLog = (chatLog) => {
+    return chatLog.map(({name, body}, i) => {
+      return (
+        <MessageLayout
+          name={name}
+          body={body}
+          sentByMe={name === me}
+          key={`M_${name}_${i}`}
+          i={i}
+          ></MessageLayout>
+      )
+    })
+  }
 
   return (
     <> <div className="App-title">
@@ -64,27 +52,31 @@ const ChatRoom = ({ me }) => {
           onChange={(key) => setActiveKey(key)}
           onEdit={(targetKey, action) => {
             if (action === "add") addChatBox();
-            else if (action === "remove") removeChatBox(targetKey)
+            else if (action === "remove") setActiveKey(removeChatBox(activeKey, targetKey))
           }}
         >
           {chatBoxes.map((
             { friend, key, chatLog }) => {
+              console.log(friend, key, chatLog)
               return (
                 <TabPane tab={friend} 
                   key={key} closable={true}>
-                  <p>{friend}'s chatbox.</p>
+                  <div className='overflow'>
+                    {renderChatLog(chatLog)}
+                  </div>
                 </TabPane>
             );})}
         </Tabs>
         <ChatModal
           visible={modalVisible}
           onCreate={({ name }) => {
-            createChatBox(name);
+            setActiveKey(createChatBox(server, name, me));
             setModalVisible(false);
           }}
           onCancel={() => {
             setModalVisible(false);
           }}
+          displayStatus={displayStatus}
         />
         </div>
         <Input.Search
@@ -94,8 +86,17 @@ const ChatRoom = ({ me }) => {
           enterButton="Send"
           placeholder=
             "Enter message here..."
-          onSearch={(msg) => 
-            { sendMessage({type: "MESSAGE", activeKey, msg}) }}
+          onSearch={(msg) => {
+            if (!msg) {
+              displayStatus({type: 'error', msg: 'Please enter message'})
+              return
+            } else if (!activeKey) {
+              displayStatus({type: 'error', msg: 'Please add a chatbox first'})
+              return
+            }
+            sendMessage(server, {me: me, key: activeKey, body: msg})
+            setMessageInput("")
+          }}
         ></Input.Search> 
     </>);
   };

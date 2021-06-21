@@ -97,7 +97,7 @@ wss.on('connection', function connection(client) {
         const {
           data: { name, to },
         } = message;
-        console.log(name, to)
+        // console.log(name, to)
         const chatBoxName = makeName(name, to);
 
         const sender = await validateUser(name);
@@ -113,7 +113,7 @@ wss.on('connection', function connection(client) {
         client.box = chatBoxName;
         if (!chatBoxes[chatBoxName]) chatBoxes[chatBoxName] = new Set(); // make new record for chatbox
         chatBoxes[chatBoxName].add(client); // add this open connection into chat box
-        console.log('0.545434')
+        // console.log('0.545434')
         client.sendEvent({
           type: 'CHAT',
           data: {
@@ -148,6 +148,7 @@ wss.on('connection', function connection(client) {
         chatBoxes[chatBoxName].forEach((client) => {
           client.sendEvent({
             type: 'MESSAGE',
+            key: chatBoxName,
             data: {
               message: {
                 name,

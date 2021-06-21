@@ -29,3 +29,25 @@
   padding: 20px;
   overflow: auto;
 }
+
+.sender {
+  padding-left: 8px;
+  padding-right: 8px;
+  font-weight: bold;
+}
+
+.message-wrapper {
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
+  min-height: 40px;
+  line-height: 30px;
+}
+
+.sent-by-other {
+  justify-content: flex-start;
+}
+
+.sent-by-me {
+  justify-content: flex-end;
+}

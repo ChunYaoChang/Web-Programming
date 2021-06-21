@@ -1,22 +1,17 @@
 import { useState } from "react"; 
 
 const useChatBox = () => {
-  const [chatBoxes, setChatBoxes] = useState([
-    { friend: "Mary", key: "MaryChatbox", 
-      chatLog: [] },
-    { friend: "Peter", key: "PeterChatBox", 
-      chatLog: [] }
-  ]);
-  const createChatBox = (friend, me) => {
+  const [chatBoxes, setChatBoxes] = useState([]);
+  const createChatBox = (server, friend, me) => {
     const newKey = me <= friend ?
           `${me}_${friend}` : `${friend}_${me}`;
     if (chatBoxes.some(({ key }) => key === newKey)) {
       throw new Error(friend + "'s chat box has already opened.");
     }
-    const newChatBoxes = [...chatBoxes];
-    const chatLog = [];
-    newChatBoxes.push({ friend, key: newKey, chatLog });
-    setChatBoxes(newChatBoxes);
+    server.sendEvent({
+      type: 'CHAT',
+      data: {to:friend, name: me}
+    })
     return newKey
   };
 
@@ -37,6 +32,31 @@ const useChatBox = () => {
     setChatBoxes(newChatBoxes);
     return newActiveKey
   };
-  return { chatBoxes, createChatBox, removeChatBox };
+
+  const onEvent = (e, me, activeKey) => {
+    console.log(e, me, activeKey)
+    const {type} = e
+    const tmp = activeKey.split('_')
+    const friend = (me === tmp[0]) ? tmp[1] : tmp[0]
+
+    if (type === 'CHAT') {
+      const newChatBoxes = [...chatBoxes]
+      newChatBoxes.push({friend: friend, key: activeKey, chatLog: e.data.messages})
+      console.log(newChatBoxes)
+      setChatBoxes(newChatBoxes)
+    } else if (type === 'MESSAGE') {
+      const newChatBoxes = [...chatBoxes]
+      for (let i = 0; i < chatBoxes.length; i++) {
+        console.log(i, e.key, chatBoxes[i].key)
+        if (e.key === chatBoxes[i].key) {
+          newChatBoxes[i].chatLog.push(e.data.message)
+          console.log(newChatBoxes[i])
+          setChatBoxes(newChatBoxes)
+          break;
+        }
+      }
+    }
+  }
+  return { chatBoxes, createChatBox, removeChatBox, onEvent };
 };
 export default useChatBox;
