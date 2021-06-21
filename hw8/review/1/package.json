@@ -1,0 +1,12 @@
+{
+  "name": "simple_chat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "kiwiii <172320@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "cd frontend && yarn start",
+    "server": "cd backend && yarn server"
+  },
+  "dependencies": {}
+}

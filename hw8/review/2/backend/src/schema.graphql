@@ -1,0 +1,35 @@
+type Query {
+  chat(name: String!, to: String!): [Message]!
+}
+
+
+type Mutation {
+  pushNewMessage(data: pushNewMessageInput!): ID
+}
+
+type Subscription {
+  message(userList: [String!]): MessageSubscriptionPayload!
+}
+
+input pushNewMessageInput {
+  name: String!
+  to: String!
+  body: String!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+type Message{
+  name: String!
+  body: String!
+}
+
+
+type MessageSubscriptionPayload {
+  mutation: MutationType!
+  data: Message!
+}

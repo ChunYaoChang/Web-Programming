@@ -1,0 +1,29 @@
+type Query {
+  users(query: String): User!
+  ChatBox(query: String): ChatBox!
+  
+}
+
+type Mutation {
+  createUser(name: String): User!
+  createChatBox(name1: String!, name2: String!): ChatBox!
+  createMessage(name1: String!, name2: String!, Input:String!): Message!
+}
+
+
+type User {
+  id: ID!
+  name: String!
+}
+
+type ChatBox {
+  id: ID!
+  name: String!
+  messages: [Message!]
+}
+
+type Message {
+  id: ID!
+  messages: [Message!]
+}
+
