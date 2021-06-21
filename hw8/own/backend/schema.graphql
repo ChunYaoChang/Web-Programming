@@ -13,8 +13,8 @@ type Subscription {
 }
 
 input createMessageInput {
+  chatBoxName: String
   sender: String
-  receiver: String
   message: String
 }
 

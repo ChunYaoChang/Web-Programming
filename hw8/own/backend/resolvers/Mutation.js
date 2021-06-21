@@ -7,9 +7,9 @@ const makeName = (name, to) => {
 const checkUser = async (db, name1, type) => {
   if (type === "createChatBox") {
     const e = await db.UserModel.findOne({name: name1})
-    console.log(e)
+    // console.log(e)
     if (e) {
-      console.log(name1)
+      // console.log(name1)
       return true
     } else return false
   }
@@ -29,9 +29,13 @@ const Mutation = {
       console.log("User does not exist for CreateChatBox: " + name1);
       await newUser(db, name1);
     }
+    if (!(await checkUser(db, name2, "createChatBox"))) {
+      console.log("User does not exist for CreateChatBox: " + name2);
+      await newUser(db, name2);
+    }
     const newName = makeName(name1, name2)
     let existing = await db.ChatBoxModel.findOne({name: newName})
-    console.log('_________________________________________')
+    // console.log('_________________________________________')
     if (!existing) {
       const nChatBox = new db.ChatBoxModel({id: uuidv4(), name: newName, messages: []})
       await nChatBox.save()
@@ -42,21 +46,20 @@ const Mutation = {
 
   async createMessage(parent, { data }, { db, pubsub }, info) {
     const sender = data.sender
-    const receiver = data.receiver
     const message = data.message
-    console.log(sender, receiver, message)
+    const name = data.chatBoxName
     if (!message.length) {
       throw new Error("Empty String")
     }
     const senderID = await db.UserModel.findOne({name: sender})
     // console.log(senderID)
-    console.log('___________________________________________________')
+    // console.log('___________________________________________________')
     const nMessage = new db.MessageModel({sender: senderID, body: message})
     await nMessage.save()
-    const name = makeName(sender, receiver)
     const nowChatBox = await db.ChatBoxModel.findOne({name: name})
     nowChatBox.messages.push(nMessage)
-    
+    await nowChatBox.save()
+    // console.log(nowChatBox.messages.length)
     pubsub.publish(`chatBox ${name}`, {chatBox: {mutation: 'CREATED', data: nMessage}})
     return nMessage
   }
