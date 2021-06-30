@@ -4,7 +4,7 @@
 
 ### 在 localhost 安裝及測試的詳細步驟
 
-以下的操作都請在 `main` branch 進行。
+以下的操作都請在 `master` branch 進行。
 
 #### 前端
 
