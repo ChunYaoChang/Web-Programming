@@ -1,0 +1,243 @@
+# 測試過可用的指令
+
+
+mutation {
+  createUser(user: {
+    username: "test"
+    email: "test@test.com"
+    password: "test"
+    nickname: "fuck"
+  }) {
+    username
+    email
+    password
+    nickname
+  }
+}
+
+mutation {
+  verify(verifiedUrl: "5109bd4e-1c9a-4e41-a027-ebe2dc324b77")
+}
+
+mutation {
+  login(username: "testqwewq" password: "test")
+}
+
+mutation {
+  createUser(user: {
+    username: "test2"
+    email: "test2@test.com"
+    password: "test2"
+    nickname: "fuck2"
+  }) {
+    username
+    email
+    password
+    nickname
+  }
+}
+
+# Write your query or mutation here
+mutation {
+  updateUser(user: {
+    username: "test"
+    email: "test@test.com"
+    password: "test"
+    isCaptain: false
+  }) {
+    username
+    email
+    password
+    nickname
+    isCaptain
+  }
+}
+
+mutation {
+  updateUser(
+    id: "60d831ed2d36cb07223c01ed"
+    user: {
+      username: "test3"
+  	}
+  ) {
+    username
+    email
+    password
+    nickname
+    isCaptain
+  }
+}
+
+mutation {
+  deleteUser(user: {
+    username: "test"
+    email: "test@test.com"
+    password: "test"
+  })
+}
+
+query {
+  user(username: "test") {
+    username
+    email
+    password
+    nickname
+    isCaptain
+  }
+}
+
+query {
+  userById(id: "60d831ed2d36cb07223c01ed") {
+    username
+    email
+    password
+    nickname
+    isCaptain
+  }
+}
+
+mutation {
+  createActivity(activity: {
+    createdUser: "test"
+    title: "sex party"
+    description: "fuck everyone"
+    startDatetime: "2021-06-26 15:32:23"
+    endDatetime: "2021-06-27 15:32:23"
+    participants: ["test"]
+  }) {
+    createdUser {
+      username
+      email
+      password
+      nickname
+    }
+    title
+    description
+    startDatetime
+    endDatetime
+    participants {
+      username
+    }
+  }
+}
+
+mutation {
+  updateActivity(activity: {
+    createdUser: "test"
+    title: "sex party"
+    description: "fuck everyone"
+    startDatetime: "2021-06-26 15:32:23"
+    endDatetime: "2021-06-27 15:32:23"
+    participants: ["test", "test2"]
+  }) {
+    createdUser {
+      username
+      email
+      password
+      nickname
+    }
+    title
+    description
+    startDatetime
+    endDatetime
+    participants {
+      username
+    }
+  }
+}
+
+mutation {
+  deleteActivity(activity: {
+    createdUser: "test"
+    title: "sex party"
+    description: "fuck everyone"
+    startDatetime: "2021-06-26 15:32:23"
+    endDatetime: "2021-06-27 15:32:23"
+    participants: ["test"]
+  })
+}
+
+query {
+  activity(title: "sex party") {
+    createdUser {
+      username
+      email
+      password
+      nickname
+    }
+    title
+    description
+    startDatetime
+    endDatetime
+    participants {
+      username
+    }
+  } 
+}
+
+subscription {
+  activity (
+    title: "sex party"
+    startDatetime: "2021-06-26 15:32:23"
+    endDatetime: "2021-06-27 15:32:23"
+  ) {
+    mutation
+    data {
+      createdUser {
+        username
+        email
+        password
+        nickname
+      }
+      title
+      description
+      startDatetime
+      endDatetime
+      participants {
+        username
+      }
+    }
+  }
+}
+
+mutation {
+  createVideo(video: {
+    gameName: "fuck2021"
+    gameType: "男單"
+    datetime: "2021-06-27"
+    url: "https://www.youtube.com/watch?v=072tU1tamd0"
+    description: "fuck"
+  }) {
+    gameName
+    gameType
+    datetime
+    url
+    description
+  }
+}
+
+mutation {
+  updateVideo(video: {
+    gameName: "fuck2021"
+    gameType: "男單"
+    datetime: "2021-06-27"
+    url: "https://www.youtube.com/watch?v=072tU1tamd0"
+    description: "fuck2"
+  }) {
+    gameName
+    gameType
+    datetime
+    url
+    description
+  }
+}
+
+mutation {
+  deleteVideo(video: {
+    gameName: "fuck2021"
+    gameType: "男單"
+    datetime: "2021-06-27"
+    url: "https://www.youtube.com/watch?v=072tU1tamd0"
+    description: "fuck"
+  })
+}

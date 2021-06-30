@@ -1,0 +1,122 @@
+type Query {
+  userById(id: ID): User!
+  user(username: String): User!
+  allUser: [User]!
+  activity(title: String): [Activity]!
+  allActivity: [Activity]!
+  video(gameName: String): [Video]!
+  allVideo: [Video]!
+}
+
+type Mutation {
+  login(username: String, password: String): Boolean!
+  verify(verifiedUrl: String): Boolean!
+  getUserIdByUsername(username: String): ID!
+  getUserById(id: ID): User
+  createUser(user: createUserInput): User!
+  updateUser(id: ID, user: updateUserInput, adminCode: String): User!
+  deleteUser(id: ID): Boolean!
+  createActivity(activity: createActivityInput): Activity!
+  updateActivity(activity: updateActivityInput, type: String): Activity!
+  deleteActivity(activity: createActivityInput): Boolean!
+  createVideo(video: createVideoInput): Video!
+  updateVideo(video: createVideoInput): Video!
+  deleteVideo(video: createVideoInput): Boolean!
+}
+
+type Subscription {
+  activity: ActivitySubscriptionPayload!
+  video: VideoSubscriptionPayload!
+  user: UserSubcriptionPayload!
+}
+
+input createUserInput {
+  username: String!
+  email: String!
+  password: String!
+  nickname: String
+  isCaptain: Boolean
+}
+
+input updateUserInput {
+  username: String
+  email: String
+  password: String
+  nickname: String
+  isCaptain: Boolean
+}
+
+input createActivityInput {
+  createdUser: ID
+  title: String!
+  description: String
+  startDatetime: String!
+  endDatetime: String!
+  participants: [ID]
+}
+
+input updateActivityInput {
+  createdUser: ID
+  title: String
+  description: String
+  startDatetime: String
+  endDatetime: String
+  participants: ID
+}
+
+input createVideoInput {
+  gameName: String!
+  gameType: String!
+  datetime: String!
+  url: String!
+  description: String
+}
+
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  password: String!
+  nickname: String
+  isCaptain: Boolean
+  isVerified: Boolean
+  verifiedUrl: String!
+}
+
+type Activity {
+  id: ID!
+  createdUser: User!
+  title: String!
+  description: String
+  startDatetime: String!
+  endDatetime: String!
+  participants: [User!]!
+}
+
+type Video {
+  id: ID!
+  gameName: String!
+  gameType: String!
+  datetime: String!
+  url: String!
+  description: String
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+type ActivitySubscriptionPayload {
+  allActivity: [Activity]!
+}
+
+type VideoSubscriptionPayload {
+  allVideo: [Video]!
+}
+
+type UserSubcriptionPayload {
+  allUser: [User]!
+}

@@ -1,0 +1,14 @@
+{
+  "name": "sports_team_system",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd frontend && yarn start",
+    "server": "cd backend && yarn start",
+    "build": "(cd frontend && yarn install && yarn build) && (cd backend && yarn install)",
+    "start-server": "cd backend && yarn prod-server"
+  },
+  "repository": "git@github.com:vincentthh35/sports-team-system.git",
+  "author": "vincentthh35 <vincentthh35@gmail.com>",
+  "license": "MIT"
+}
