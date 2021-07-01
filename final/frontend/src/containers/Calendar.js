@@ -28,8 +28,10 @@ const Calendar = ({ user, displaySnackMessage }) => {
 
   const getActivityListByDate = useCallback(
     (date) => {
-      return data.allActivity.filter((activity) =>
-        moment(activity.startDatetime).isSame(date, 'day'));
+      if (data)
+        return data.allActivity.filter((activity) =>
+          moment(activity.startDatetime).isSame(date, 'day'));
+      else return [];
     },
     [data],
   );
